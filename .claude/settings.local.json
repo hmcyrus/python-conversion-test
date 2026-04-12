@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(sed 's/.*\\\\.//')",
+      "Bash(grep -l \"3phase\\\\|three phase\\\\|3-phase\\\\|3p\\\\|distribution\\\\|feeder\\\\|PV\\\\|solar\\\\|battery\\\\|storage\\\\|microgrid\" \"D:\\\\cyrus\\\\lab\\\\psa\\\\3p4w_for_Cyrus\"/*.m)",
+      "Bash(ls -lh \"D:\\\\cyrus\\\\lab\\\\psa\\\\3p4w_for_Cyrus\"/*.mat \"D:\\\\cyrus\\\\lab\\\\psa\\\\3p4w_for_Cyrus\"/*.xlsx)",
+      "Bash(xargs -I {} basename {})",
+      "Bash(python main.py)",
+      "Bash(pip install:*)",
+      "Bash(ls \"D:/cyrus/lab/psa/3p4w_for_Cyrus/\"*.m)"
+    ]
+  }
+}
