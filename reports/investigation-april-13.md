@@ -1,5 +1,4 @@
-## April 13
-There was an issue in output with the first iteration of conversion after we replaced the `[zeros(4,4)]` with `trf_ymat` in the initialization of `lines` in position `{2,3}` (1-indexed position) in `ieee_4bus_3ph_3_4wire.m`
+We faced an issue in output with the first iteration of conversion after we replaced the `[zeros(4,4)]` with `trf_ymat` in the initialization of `lines` in position `{2,3}` (1-indexed position) in `ieee_4bus_3ph_3_4wire.m`
 
 # output of nr iteration 
 
