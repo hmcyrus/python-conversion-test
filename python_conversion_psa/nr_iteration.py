@@ -333,5 +333,11 @@ def nr_step(sd):
     sd['busPI'] = busPI_new
     sd['busQI'] = busQI_new
 
-    # Convergence metric: the full pre-solve mismatch vector
-    return sd, dI_full
+    # Convergence metric: trimmed mismatch vector (slack + floating-neutral rows
+    # removed), matching the MATLAB `dI(vanish_ind)=[]` check in curr_mm_3p3_4w.m.
+    # dI_full includes the slack-bus rows whose mismatch equals -Y*V (large and
+    # grows after iteration 1), which would prevent convergence detection.
+    dI_conv = np.delete(dI_full, vanish_ind)
+    if len(delV_spec) > 0:
+        dI_conv = np.concatenate([dI_conv, delV_spec])
+    return sd, dI_conv
