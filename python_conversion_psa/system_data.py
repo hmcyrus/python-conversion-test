@@ -158,19 +158,12 @@ def build_system():
     y_line_12 = np.zeros((4, 4), dtype=complex)
     y_line_12[:3, :3] = np.linalg.inv(z_line_12_3w)
 
-    # Line 2-3: transformer branch.
-    # NOTE: In the original MATLAB code this is zeros(4,4) — the transformer
-    # admittance was left disconnected (commented-out lines in ieee_4bus_3ph_3_4wire.m).
-    # Without this connection buses 3-4 form an isolated subsystem with no
-    # voltage reference, causing unphysical voltages.
-    # Set USE_TRANSFORMER = True to wire in the transformer (trf_Y_4x4),
-    # which gives physically meaningful LV voltages at buses 3-4.
-    USE_TRANSFORMER = False   # set True to activate transformer branch
-    y_line_23 = np.zeros((4, 4), dtype=complex)
-    if USE_TRANSFORMER:
-        # grounded-wye/grounded-wye single-phase equivalent (diagonal per phase)
-        trf_Y_3ph = np.diag([Trf_Y, Trf_Y, Trf_Y, 0.0]).astype(complex)
-        y_line_23 = trf_Y_3ph
+    # Line 2-3: transformer branch — trf_ymat in MATLAB.
+    # 4×4 grounded-wye/grounded-wye primitive admittance matrix with neutral tied.
+    trf_Y_4x4 = np.diag([Trf_Y, Trf_Y, Trf_Y, 3*Trf_Y]).astype(complex)
+    trf_Y_4x4[3, :3] = -Trf_Y
+    trf_Y_4x4[:3, 3] = -Trf_Y
+    y_line_23 = trf_Y_4x4
 
     # Line 3-4: 3-wire section, 2500 ft, LV base
     z_line_34_3w = (z_3w_3ph / (1760 * 3)) * 2500
@@ -181,14 +174,6 @@ def build_system():
 
     y_line_34 = np.zeros((4, 4), dtype=complex)
     y_line_34[:3, :3] = np.linalg.inv(z_line_34_3w)
-
-    # ------------------------------------------------------------------
-    # Transformer 4×4 primitive admittance matrix
-    # (grounded-wye / grounded-wye, neutral tied)
-    # ------------------------------------------------------------------
-    trf_Y_4x4 = np.diag([Trf_Y, Trf_Y, Trf_Y, 3*Trf_Y]).astype(complex)
-    trf_Y_4x4[3, :3] = -Trf_Y
-    trf_Y_4x4[:3, 3] = -Trf_Y
 
     # ------------------------------------------------------------------
     # Line table
