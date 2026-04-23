@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "pypsa-demo"
+name = "pypsa-poc"
 version = "0.1.0"
 description = "IEEE 4-Bus topology variations implemented in PyPSA"
 authors = []
@@ -11,13 +11,14 @@ pypsa = ">=1.1.2"
 pandas = ">=3.0.2"
 numpy = ">=2.4.4"
 xarray = ">=2025.12.0,<2026.1.0"
+matplotlib = ">=3.9"
 
 [build-system]
 requires = ["poetry-core>=2.0.0"]
 build-backend = "poetry.core.masonry.api"
 
 [project]
-name = "pypsa-demo"
+name = "pypsa-poc"
 version = "0.1.0"
 description = "IEEE 4-Bus topology variations implemented in PyPSA"
 requires-python = ">=3.11"
@@ -25,4 +26,6 @@ dependencies = [
     "pypsa>=1.1.2",
     "pandas>=3.0.2",
     "numpy>=2.4.4",
+    "xarray>=2025.12.0,<2026.1.0",
+    "matplotlib>=3.9",
 ]
